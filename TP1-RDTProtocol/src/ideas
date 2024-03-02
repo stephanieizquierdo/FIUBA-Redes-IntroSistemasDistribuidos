@@ -1,0 +1,24 @@
+- stop and wait
+"After transmitting one packet, the sender waits for an acknowledgment (ACK)-> from the receiver before transmitting the next one. "
+-> necesitamos id para contemplar el caso en el que haya timeout porque el sender nunca recibe el ack
+
+maximo de datos =
+
+
+El código que proporcionaste está utilizando el método to_bytes para convertir un número (en este caso, id) en una secuencia de bytes con un tamaño
+específico y un orden de bytes específico ('big' en este caso). En tu código, estás convirtiendo id en una secuencia de 2 bytes en orden 'big-endian'
+(también conocido como "orden de bytes más significativo primero").
+
+En este contexto, el número máximo al que estás limitando tu id depende del número de bytes que estás utilizando para representar ese id y del orden
+de bytes que estás utilizando. En tu caso, estás utilizando 2 bytes en orden 'big-endian', lo que significa que el número máximo que puedes representar es 65535 en decimal.
+
+Esto se debe a que 2 bytes pueden representar un total de 16 bits (2^16), y en orden 'big-endian', el bit más significativo se encuentra en el byte más alto.
+Por lo tanto, el rango de valores posibles que puedes representar en 2 bytes en orden 'big-endian' es de 0 a 65535 (2^16 - 1).
+
+Así que, con tu código actual, estás limitando tu id a valores en el rango de 0 a 65535. Si necesitas un rango diferente, deberás ajustar el número de bytes
+y/o el orden de bytes en la conversión.
+
+------
+
+o sea si yo a id lo limito a 2 bytes a lo sumo puedo manejar 65535 paquetes, esto significa que si yo de datos base (sin metadata) mando 54 bytes solo puedo enviar 3 megas
+bytes del archivo que envio por paquete * cantidad de paquetes maximo que puedo mandar = largo maximo del archivo a mandar
